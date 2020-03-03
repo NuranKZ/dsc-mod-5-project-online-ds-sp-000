@@ -43,15 +43,14 @@ Thus, the attempt to build a price range classifier undertaken in this project m
 In further analysis, I have excluded a number of features that either do not provide useful information or are of little use given the methodology adopted in the project. The most significant here is the exclusion of NLP algorithms and most likely neural networks, which is not foreseen in this project.  
 Also, it's important to note that about 38% of the price range data was missing, so I left only 78 thousand observations for analysis. 
 The visual diagram of Target distribution by classes is presented below.
-(INSERT PICTURE)
+![](pics/target.png)
 Also categorical data by city and by cuisine style were encoded by One-Hot-Encoder. Total size of the dataset: 77 672 samples : 159 features.  
 
 
-### Location and aggregated statistics
+### Location
 Restaurant Dataset covers almost all major EU cities except for some Eastern European cities and is a representative of the industry in the region.      
-(INSERT MAP)  
-The table below presents some indicators of aggregate data ranking (TOP-3) by classes.
-(INSERT SLIDE)  
+![](pics/map.png)  
+
 
 ## Data Preprocessing and Model construction
 
@@ -60,8 +59,10 @@ As part of the analysis, joint KDE, the correlation matrix and the cluster analy
 Despite the fact that it visually seems that some values can form clusters (such as Rating and Ranking - for 2D-KDE), Silhouette Score using the KMeans model is estimated at 0.04 (for 3 clusters).  
 Additionally, clusters by DBSCAN were evaluated for different hyperparameter configurations: the absolute value of Silhouette Score metric did not exceed 0.25. So no significant clusters revealed here.
 
-(ВСТАВИТЬ 2Д)
-(ВСТАВИТЬ ELBOW PLOT)
+![](pics/2KDE.png) 
+
+![](pics/elbow.png) 
+
 
 To reduce the dimension of the feature space and exclude the correlated features, the PCA method was applied to the data with a selected number of components - 87 (from the original 159), preserving 97.5% of the Variation.  
 Scaling of data was performed 2 times: before PCA and after PCA by MinMaxScaler.
@@ -104,13 +105,13 @@ After selecting hyperparameters, I retrained all classes of models on the full T
 - accuracy score on TRAIN SET = 0.80
 
 Corresponding confusion matrix
-(INSERT)
+![](pics/conf.png)
 
 As part of my research curiosity I additionally tested the model for accuracy by feeding small bootstrap-samples (with n=100) 10k-times from TEST DATASET and combined (TEST+TRAIN) DATASET. The results of the trained model showed relative stability of accuracy:
 - for TEST: mean = 0.75, std = 0.04
 - for TEST+TRAIN: mean = 0.79, std = 0.04
 An example of the corresponding histogram is presented below.
-
+![](pics/mc.png)
 
 ### Future Work
 The research of such dataset can be used for different purposes.
